@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokasi — Seburing Hulu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --hutan-deep: #16261A;
+    --hutan: #24391F;
+    --sawah: #47612F;
+    --tanah: #A15A34;
+    --karat: #B4552F;
+    --emas: #D3A53B;
+    --emas-pucat: #E9CB86;
+    --kertas: #F6F0E2;
+    --kertas-deep: #ECE2C9;
+    --tinta: #1E1810;
+    --line: rgba(30,24,16,0.13);
+    --line-dark: rgba(246,240,226,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--kertas);
+    color:var(--tinta);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--emas); color:var(--tinta); }
+  img{max-width:100%;}
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; letter-spacing:-0.01em; }
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; }
+  a{color:inherit;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; left:0; right:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,5vw,64px);
+    background:var(--hutan-deep);
+    border-bottom:1px solid var(--line-dark);
+    flex-wrap:wrap; gap:14px;
+  }
+  .nav-mark{
+    font-family:'Fraunces', serif; font-weight:600; font-size:17px;
+    color:#fff; display:flex; align-items:center; gap:9px; text-decoration:none;
+  }
+  .nav-mark .dot{width:7px;height:7px;border-radius:50%;background:var(--emas);display:inline-block;}
+  .nav-links{ display:flex; gap:26px; flex-wrap:wrap; }
+  .nav-links a{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--kertas); opacity:0.65; text-decoration:none;
+    padding-bottom:4px; border-bottom:2px solid transparent;
+    transition:opacity 0.2s ease;
+  }
+  .nav-links a:hover{ opacity:1; }
+  .nav-links a.active{ opacity:1; border-bottom-color:var(--emas); color:var(--emas-pucat); }
+
+  /* PAGE HEADER (subpages) */
+  .page-header{
+    position:relative;
+    padding:100px clamp(20px,7vw,90px) 70px;
+    background:var(--hutan-deep);
+    color:var(--kertas);
+    overflow:hidden;
+  }
+  .page-header::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(100deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 5px);
+  }
+  .page-header-inner{ position:relative; z-index:1; }
+  .page-eyebrow{ color:var(--emas-pucat); margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+  .page-eyebrow::before{ content:""; width:28px; height:1px; background:var(--emas-pucat); display:inline-block;}
+  .page-header h1{ font-size:clamp(40px,7vw,84px); line-height:0.96; }
+  .page-header h1 em{ font-style:italic; font-weight:500; color:var(--emas-pucat); }
+  .page-sub{ max-width:620px; margin-top:22px; font-size:16.5px; line-height:1.7; opacity:0.88; }
+  .page-crumb{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+    color:var(--kertas); opacity:0.55; margin-top:36px; text-transform:uppercase;
+  }
+
+  /* HERO (index only) */
+  .hero{
+    position:relative; min-height:88vh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 clamp(20px,7vw,90px) 70px; color:var(--kertas); overflow:hidden;
+  }
+  .hero-photo{ position:absolute; inset:0; background-size:cover; background-position:center 40%; transform:scale(1.06); }
+  .hero-scrim{ position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(22,38,26,0.55) 0%, rgba(22,38,26,0.25) 32%, rgba(20,16,10,0.35) 62%, rgba(15,12,7,0.92) 100%); }
+  .hero-texture{ position:absolute; inset:0; background-image: repeating-linear-gradient(100deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 5px); mix-blend-mode:overlay; }
+  .hero-inner{ position:relative; z-index:2; }
+  .hero-eyebrow{ color:var(--emas-pucat); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+  .hero-eyebrow::before{ content:""; width:28px; height:1px; background:var(--emas-pucat); display:inline-block;}
+  .hero h1{ font-size:clamp(48px, 9vw, 120px); line-height:0.9; text-shadow:0 4px 26px rgba(0,0,0,0.35); }
+  .hero h1 em{ font-style:italic; font-weight:500; color:var(--emas-pucat); }
+  .hero-sub{ max-width:600px; margin-top:26px; font-size:17.5px; line-height:1.7; opacity:0.92; }
+  .hero-meta{ display:flex; gap:0; margin-top:44px; flex-wrap:wrap; border-top:1px solid var(--line-dark); }
+  .hero-meta div{ padding:16px 30px 0 0; margin-right:30px; border-right:1px solid var(--line-dark); }
+  .hero-meta div:last-child{border-right:none;}
+  .hero-meta .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; opacity:0.65;}
+  .hero-meta .v{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin-top:5px; color:var(--emas-pucat);}
+
+  /* NAV CARDS (index quick links) */
+  .navcards{ padding:90px clamp(20px,7vw,90px) 110px; max-width:1180px; margin:0 auto; }
+  .navcards-head{ margin-bottom:44px; }
+  .navcards-head .eyebrow{ color:var(--karat); display:block; margin-bottom:12px; }
+  .navcards-head h2{ font-size:clamp(30px,3.8vw,44px); color:var(--hutan-deep); }
+  .cards-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px; }
+  .navcard{
+    display:block; text-decoration:none; color:var(--tinta);
+    background:var(--kertas-deep); border:1px solid var(--line); border-radius:6px;
+    padding:28px 26px; transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .navcard:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -22px rgba(30,24,16,0.35); }
+  .navcard .num{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--karat); letter-spacing:0.08em; }
+  .navcard h3{ font-size:22px; color:var(--hutan-deep); margin:14px 0 10px; }
+  .navcard p{ font-size:14px; line-height:1.6; opacity:0.75; margin:0; }
+  .navcard .go{ margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--karat); letter-spacing:0.08em; text-transform:uppercase; }
+
+  /* INTRO */
+  .intro{ padding:100px clamp(20px,7vw,90px); max-width:1180px; margin:0 auto; display:grid; grid-template-columns:200px 1fr; gap:60px; }
+  .intro-label{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--karat); padding-top:8px; }
+  .intro-body p{ font-family:'Fraunces',serif; font-weight:400; font-style:italic; font-size:clamp(22px,2.6vw,32px); line-height:1.5; margin:0; color:var(--hutan-deep); }
+  .intro-body p::first-letter{ font-size:1.7em; font-style:normal; font-weight:600; color:var(--karat); }
+
+  /* TIMELINE */
+  .river-section{ position:relative; padding:20px clamp(20px,7vw,90px) 130px; background:linear-gradient(180deg, transparent 0%, var(--kertas-deep) 100%); }
+  .timeline{ position:relative; z-index:1; display:flex; flex-direction:column; gap:min(14vw, 140px); max-width:960px; margin:0 auto; }
+  .era{ display:grid; grid-template-columns:88px 1fr; gap:30px; }
+  .era-num{ font-family:'Fraunces',serif; font-weight:700; font-size:56px; color:var(--kertas-deep); -webkit-text-stroke:1.4px var(--emas); line-height:1; }
+  .era-marker-yr{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; margin-top:8px; color:var(--hutan); opacity:0.65; letter-spacing:0.04em; display:block; }
+  .era-body{ padding-top:6px; }
+  .era-tag{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--karat); margin-bottom:14px; padding-bottom:4px; border-bottom:2px solid var(--karat); }
+  .era-body h2{ font-size:clamp(26px,3.4vw,38px); color:var(--hutan-deep); margin-bottom:16px; }
+  .era-body p{ font-size:16px; line-height:1.8; opacity:0.86; max-width:56ch; margin:0; }
+
+  /* SIGNATURE QUOTE */
+  .signature{ position:relative; background:var(--hutan-deep); color:var(--kertas); padding:120px clamp(20px,7vw,90px); text-align:center; overflow:hidden; }
+  .signature::before{ content:"\201C"; position:absolute; top:20px; left:50%; transform:translateX(-50%); font-family:'Fraunces',serif; font-size:240px; color:var(--kertas); opacity:0.05; line-height:1; pointer-events:none; }
+  .signature .eyebrow{color:var(--emas); position:relative; z-index:1;}
+  .signature blockquote{ font-family:'Fraunces',serif; font-style:italic; font-size:clamp(24px,3.6vw,42px); font-weight:500; line-height:1.42; max-width:820px; margin:26px auto 0; position:relative; z-index:1; }
+  .signature cite{ display:block; margin-top:26px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.55; font-style:normal; }
+
+  /* TODAY / FACTS */
+  .today{ padding:110px clamp(20px,7vw,90px); display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; max-width:1180px; margin:0 auto; align-items:start; }
+  .today .eyebrow{ color:var(--karat); margin-bottom:16px; display:block; }
+  .today h2{ font-size:clamp(30px,4vw,48px); color:var(--hutan-deep); line-height:1.06; margin-bottom:22px; }
+  .today p{ font-size:16px; line-height:1.85; opacity:0.86; max-width:52ch; }
+  .today-facts{ display:flex; flex-direction:column; border-top:1px solid var(--line); }
+  .fact{ display:flex; justify-content:space-between; align-items:baseline; padding:20px 0; border-bottom:1px solid var(--line); }
+  .fact .label{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.06em; opacity:0.55; text-transform:uppercase; }
+  .fact .value{ font-family:'Fraunces',serif; font-weight:600; font-size:18px; text-align:right; color:var(--hutan-deep); }
+
+  /* GALLERY */
+  .gallery{ padding:20px clamp(20px,7vw,90px) 130px; max-width:1180px; margin:0 auto; }
+  .gallery-head{ margin-bottom:44px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+  .gallery-head .eyebrow{ color:var(--karat); display:block; margin-bottom:12px; }
+  .gallery-head h2{ font-size:clamp(30px,3.8vw,46px); color:var(--hutan-deep); }
+  .photo-grid{ display:flex; flex-direction:column; gap:60px; }
+  .photo-feature{ position:relative; border-radius:6px; overflow:hidden; box-shadow:0 30px 70px -30px rgba(30,24,16,0.4); }
+  .photo-feature img{ width:100%; display:block; filter:saturate(1.02) contrast(1.02); }
+  .photo-caption-bar{ position:absolute; left:0; right:0; bottom:0; background:linear-gradient(0deg, rgba(15,12,7,0.88) 0%, rgba(15,12,7,0.0) 100%); padding:70px 30px 26px; color:var(--kertas); }
+  .photo-caption-bar .loc{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--emas-pucat); margin-bottom:8px; display:flex; align-items:center; gap:7px; }
+  .photo-caption-bar .loc svg{ width:12px; height:12px; }
+  .photo-caption-bar p{ font-family:'Inter',sans-serif; font-size:15px; line-height:1.6; margin:0; max-width:60ch; opacity:0.94; }
+
+  /* LOKASI */
+  .lokasi{ padding:20px clamp(20px,7vw,90px) 130px; max-width:1180px; margin:0 auto; }
+  .lokasi-head{ margin-bottom:40px; padding-bottom:26px; border-bottom:1px solid var(--line); }
+  .lokasi-head .eyebrow{ color:var(--karat); display:block; margin-bottom:12px; }
+  .lokasi-head h2{ font-size:clamp(30px,3.8vw,46px); color:var(--hutan-deep); }
+  .lokasi-box{ border-radius:6px; overflow:hidden; box-shadow:0 30px 70px -30px rgba(30,24,16,0.35); }
+  .lokasi-info{ background:var(--hutan-deep); color:var(--kertas); padding:56px clamp(28px,6vw,80px); display:flex; flex-direction:column; gap:22px; max-width:680px; }
+  .lokasi-info .plus-code{ font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.06em; color:var(--emas-pucat); display:flex; align-items:center; gap:8px; }
+  .lokasi-info .alamat{ font-family:'Fraunces',serif; font-size:clamp(19px,2.2vw,26px); line-height:1.5; font-weight:500; }
+  .lokasi-info .desk{ font-size:15px; line-height:1.75; opacity:0.85; max-width:56ch; }
+  .lokasi-btn{ display:inline-flex; align-items:center; gap:10px; background:var(--emas); color:var(--hutan-deep); font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; font-weight:500; padding:14px 22px; border-radius:100px; text-decoration:none; width:fit-content; transition:transform 0.25s ease, box-shadow 0.25s ease; box-shadow:0 8px 20px -8px rgba(211,165,59,0.5); }
+  .lokasi-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 26px -8px rgba(211,165,59,0.65); }
+  .lokasi-btn svg{ width:15px; height:15px; }
+  .lokasi-facts{ margin-top:8px; display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line-dark); }
+  .lokasi-facts .fact{ padding:16px 0; border-bottom:1px solid var(--line-dark); }
+  .lokasi-facts .label{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:0.6; text-transform:uppercase; letter-spacing:0.06em; }
+  .lokasi-facts .value{ font-family:'Fraunces',serif; font-size:16px; margin-top:3px; color:var(--emas-pucat); }
+
+  footer{ padding:50px clamp(20px,7vw,90px) 44px; border-top:1px solid var(--line); background:var(--kertas-deep); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+  footer .f-left{ font-family:'Fraunces',serif; font-weight:600; display:flex; align-items:center; gap:8px; }
+  footer .f-left .dot{ width:6px;height:6px;border-radius:50%;background:var(--emas); display:inline-block; }
+  footer .f-right{ font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:0.55; letter-spacing:0.05em; }
+  footer .f-nav{ display:flex; gap:20px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.05em; }
+  footer .f-nav a{ text-decoration:none; opacity:0.65; }
+  footer .f-nav a:hover{ opacity:1; }
+
+  @media (max-width:800px){
+    .intro{ grid-template-columns:1fr; gap:20px; }
+    .era{ grid-template-columns:50px 1fr; gap:16px; }
+    .era-num{ font-size:36px; }
+    .today{ grid-template-columns:1fr; gap:40px; }
+    .hero-meta{ gap:0; }
+    .hero-meta div{ padding-right:20px; margin-right:20px; }
+    .nav-links{ gap:16px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-mark" href="index.html"><span class="dot"></span>Seburing Hulu</a>
+  <div class="nav-links"><a class="" href="index.html">Beranda</a><a class="" href="sejarah.html">Asal Usul</a><a class="" href="profil.html">Profil</a><a class="" href="galeri.html">Galeri</a><a class="active" href="lokasi.html">Lokasi</a></div>
+</nav>
+
+<section class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow eyebrow">Titik lokasi</div>
+    <h1>Cari <em>Seburing Hulu</em></h1>
+    <p class="page-sub">Gunakan kode plus atau alamat berikut untuk menemukan lokasi Kampung Seburing Hulu di peta.</p>
+  </div>
+</section>
+
+<section class="lokasi">
+  <div class="lokasi-box">
+    <div class="lokasi-info">
+      <div class="plus-code">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        43V9+27H
+      </div>
+      <div class="alamat">Seburing, Kec. Semparuk, Kabupaten Sambas, Kalimantan Barat 79453</div>
+      <p class="desk">Titik ini menunjukkan lokasi Kampung Seburing Hulu, bagian dari wilayah Desa Seburing. Tekan tombol di bawah untuk membuka rute dan navigasi langsung lewat Google Maps.</p>
+      <a class="lokasi-btn" href="https://www.google.com/maps/search/?api=1&query=43V9%2B27H+Seburing%2C+Kec.+Semparuk%2C+Kabupaten+Sambas%2C+Kalimantan+Barat+79453" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        Buka di Google Maps
+      </a>
+      <div class="lokasi-facts">
+        <div class="fact"><div class="label">Desa</div><div class="value">Seburing</div></div>
+        <div class="fact"><div class="label">Kecamatan</div><div class="value">Semparuk</div></div>
+        <div class="fact"><div class="label">Kabupaten</div><div class="value">Sambas</div></div>
+        <div class="fact"><div class="label">Kode Pos</div><div class="value">79453</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-left"><span class="dot"></span>Seburing Hulu</div>
+  <div class="f-nav"><a href="index.html">Beranda</a><a href="sejarah.html">Asal Usul</a><a href="profil.html">Profil</a><a href="galeri.html">Galeri</a><a href="lokasi.html">Lokasi</a></div>
+  <div class="f-right">DESA SEBURING &middot; KEC. SEMPARUK &middot; KAB. SAMBAS &middot; KALIMANTAN BARAT</div>
+</footer>
+</body>
+</html>
