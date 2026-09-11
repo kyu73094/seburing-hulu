@@ -1,0 +1,61 @@
+/**
+ * Seburing Hulu — Backend Formulir Kontak
+ * ------------------------------------------------
+ * Menyimpan setiap pesan yang dikirim lewat formulir kontak
+ * ke dalam Google Sheet ini (bekerja seperti "database" sederhana).
+ *
+ * CARA PAKAI (lihat README.md untuk versi lengkap):
+ * 1. Buka Google Sheet baru.
+ * 2. Ekstensi > Apps Script, hapus isi default, tempel kode ini.
+ * 3. Jalankan sekali fungsi setup() lewat menu Run agar sheet "Pesan" dibuat otomatis.
+ * 4. Deploy > New deployment > Web app.
+ *      - Execute as: Me
+ *      - Who has access: Anyone
+ * 5. Salin URL Web App yang muncul, tempel ke SCRIPT_URL di kontak.html
+ */
+
+const SHEET_NAME = 'Pesan';
+
+// Jalankan sekali secara manual untuk membuat sheet + header kolom.
+function setup() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+  }
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Waktu', 'Nama', 'Kontak (WA/Email)', 'Pesan']);
+    sheet.getRange(1, 1, 1, 4).setFontWeight('bold');
+  }
+}
+
+// Menerima kiriman dari formulir kontak di kontak.html
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    const params = e.parameter;
+
+    sheet.appendRow([
+      new Date(),
+      params.nama || '',
+      params.kontak || '',
+      params.pesan || ''
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: 'error', message: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Sekadar untuk mengecek dari browser apakah Web App sudah aktif.
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: 'ok', message: 'API kontak Seburing Hulu aktif' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
